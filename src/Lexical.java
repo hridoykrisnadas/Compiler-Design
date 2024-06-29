@@ -3,11 +3,12 @@ import java.util.regex.*;
 
 public class Lexical {
     // Define patterns for different tokens
-    private static final String KEYWORD_PATTERN = "\\b(if|else|int|float|double|char)\\b";
+    private static final String KEYWORD_PATTERN = "\\b(if|else|byte|int|long|float|double|char|boolean|for|while|return|switch|case|final|do|goto|new|private|public|protected)\\b";
     private static final String IDENTIFIER_PATTERN = "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b";
     private static final String CONSTANT_PATTERN = "\\b\\d+\\b";
-    private static final String ARITHMETIC_OPERATOR_PATTERN = "[+\\-*/]";
-    private static final String LOGICAL_OPERATOR_PATTERN = "[><=!]=?|&&|\\|\\|";
+    private static final String ARITHMETIC_OPERATOR_PATTERN = "[+\\-*/%]";
+    private static final String ASSIGNMENT_OPERATOR_PATTERN = "=";
+    private static final String LOGICAL_OPERATOR_PATTERN = "(==|!=|<=|>=|<|>|&&|\\|\\|)";
     private static final String PUNCTUATION_PATTERN = "[;:,]";
     private static final String PARENTHESIS_PATTERN = "[(){}\\[\\]]";
 
@@ -23,13 +24,14 @@ public class Lexical {
         tokens.put("Constant", new ArrayList<>());
         tokens.put("Arithmetic Operator", new ArrayList<>());
         tokens.put("Logical Operator", new ArrayList<>());
+        tokens.put("Assignment Operator", new ArrayList<>());
         tokens.put("Punctuation", new ArrayList<>());
         tokens.put("Parenthesis", new ArrayList<>());
 
         // Define pattern with all the token patterns combined
         Pattern pattern = Pattern.compile(
                 KEYWORD_PATTERN + "|" + IDENTIFIER_PATTERN + "|" + CONSTANT_PATTERN + "|" +
-                        ARITHMETIC_OPERATOR_PATTERN + "|" + LOGICAL_OPERATOR_PATTERN + "|" +
+                        ARITHMETIC_OPERATOR_PATTERN + "|" + LOGICAL_OPERATOR_PATTERN + "|" +ASSIGNMENT_OPERATOR_PATTERN + "|" +
                         PUNCTUATION_PATTERN + "|" + PARENTHESIS_PATTERN
         );
 
@@ -46,6 +48,8 @@ public class Lexical {
                 tokens.get("Arithmetic Operator").add(token);
             } else if (token.matches(LOGICAL_OPERATOR_PATTERN)) {
                 tokens.get("Logical Operator").add(token);
+            } else if (token.matches(ASSIGNMENT_OPERATOR_PATTERN)) {
+                tokens.get("Assignment Operator").add(token);
             } else if (token.matches(PUNCTUATION_PATTERN)) {
                 tokens.get("Punctuation").add(token);
             } else if (token.matches(PARENTHESIS_PATTERN)) {
