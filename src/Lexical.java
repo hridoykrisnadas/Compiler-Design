@@ -5,7 +5,7 @@ public class Lexical {
     // Define patterns for different tokens
     private static final String KEYWORD_PATTERN = "\\b(if|else|byte|int|long|float|double|char|boolean|for|while|return|switch|case|final|do|goto|new|private|public|protected)\\b";
     private static final String IDENTIFIER_PATTERN = "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b";
-    private static final String CONSTANT_PATTERN = "\\b\\d+\\b";
+    private static final String CONSTANT_PATTERN = "-?\\b\\d+\\.?\\d*\\b";
     private static final String ARITHMETIC_OPERATOR_PATTERN = "[+\\-*/%]";
     private static final String ASSIGNMENT_OPERATOR_PATTERN = "=";
     private static final String LOGICAL_OPERATOR_PATTERN = "(==|!=|<=|>=|<|>|&&|\\|\\|)";
@@ -15,6 +15,7 @@ public class Lexical {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the input string:");
+//        Sample Input: int ab = (bc1 - float 10.6) / {cd * (-12)};
         String input = scanner.nextLine();
         scanner.close();
 
